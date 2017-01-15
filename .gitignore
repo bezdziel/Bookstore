@@ -1,0 +1,10 @@
+/packages
+/Bookstore.Core/bin
+/Bookstore.Core/obj
+/Bookstore.Provider.Amazon/bin
+/Bookstore.Provider.Amazon/obj
+/Bookstore.Provider.Apress/bin
+/Bookstore.Provider.Apress/obj
+/Bookstore.Web/BookstoreWeb.csproj.user
+/Bookstore.Web/bin
+/Bookstore.Web/obj

@@ -1,0 +1,68 @@
+﻿@using Bookstore.Core
+@model IEnumerable<IBook>
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.3.0/material.indigo-pink.min.css">
+    <script defer src="https://code.getmdl.io/1.3.0/material.min.js"></script>
+    <title>Bookstore</title>
+    <script type="text/javascript">
+        function showIndicator() {
+            document.getElementById('title').blur();
+            var element = document.createElement('div');
+            element.innerHTML = '<div style="position:absolute; top:0; left:0; width: 100%; height: 100%; background: rgba(10,10,10,0.5); zindex: 10"><div style="zoom:2; top: calc(50% - 14px);left: calc(50% - 14px); " class="mdl-spinner mdl-js-spinner is-active"></div></div>';
+            document.body.appendChild(element);
+            window.componentHandler.upgradeDom();
+        }
+    </script>
+</head>
+<body>
+    <form action="@Url.Action("Index", "Home")" method="post" onsubmit="showIndicator()">
+        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label" style="margin:10px;">
+            <input class="mdl-textfield__input" value="@ViewBag.Title" type="text" id="title" name="title">
+            <label class="mdl-textfield__label" for="sample3">Enter book title (example: MVC 5)...</label>
+        </div>
+    </form>
+
+        <table style="width: 100%" class="mdl-data-table mdl-js-data-table mdl-data-table mdl-shadow--2dp">
+            <thead>
+                <tr>
+                    <th class="mdl-data-table__cell--non-numeric">Store</th>
+                    <th>Price</th>
+                    <th class="mdl-data-table__cell--non-numeric">Title</th>
+                    <th>ISBN</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var group in Model.GroupBy(m => m.Isbn))
+                {
+                    var store = string.Empty;
+                    var a = string.Empty;
+                    var isbn = string.Empty;
+                    var price = string.Empty;
+                    var currency = string.Empty;
+                    foreach (var i in group.OrderBy(g => g.Price))
+                    {
+                        store += i.Store + "</br>";
+                        a += "<a href=\"" + i.BookDetailsUrl + "\">" + i.Title + "</a></br>";
+                        isbn = i.Isbn;
+                        price += i.Price + " (" + i.Currency + ")</br>";
+                    }
+                    store = store.Substring(0, store.Length - 5);
+                    a = a.Substring(0, a.Length - 5);
+                   
+                    price = price.Substring(0, price.Length - 5);
+                    <tr>
+                        <td class="mdl-data-table__cell--non-numeric">@Html.Raw(store)</td>
+                        <td>@Html.Raw(price)</td>
+                        <td class="mdl-data-table__cell--non-numeric">@Html.Raw(a)</td>
+                        <td>@Html.Raw(isbn)</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+</body>
+</html>
