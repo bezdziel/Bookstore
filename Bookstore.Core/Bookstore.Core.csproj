@@ -45,9 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Model\Book.cs" />
     <Compile Include="Interfaces.cs" />
-    <Compile Include="Model\BookResult.cs" />
     <Compile Include="SearchEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
